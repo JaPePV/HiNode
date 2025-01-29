@@ -1,0 +1,152 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+#Wrapper-Header {
+    width: 100%;
+    height: 20vh;
+    background-color: #E0E0E0;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  #Header-Name {
+    position: absolute;
+    font-size: 40px;
+    color: white;
+    padding-top: 50px;
+    padding-left: 40%;
+  }
+  
+  #Header-Logo1 {
+    width: 100%;
+    height: 18vh;
+    justify-content: center;
+    display: flex;
+  }
+  .Wrapper-Fields{
+    width: 100%;
+    margin-top: 25px;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .Field {
+    width: 225px;
+    height: 160px;
+    background-color: #E0E0E0;
+    border-radius: 20px;
+    margin-right: 15px;
+    border: 5px solid white; /* Dunklere Grenze für besseren 3D-Effekt */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6),
+      /* Schatten nach rechts und unten */ -1px -1px 5px rgba(255, 255, 255, 0.2); /* Hellerer Schatten nach oben und links für den erhöhten Effekt */
+  }
+  .Field:hover {
+    border-color: green;
+  }
+  .Field-Logo{
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    fill: #c00;
+  }
+  .Field-Name{
+    width: 100%;
+    font-family: 'Poppins', sans-serif; /* Moderne Schriftart */
+    font-size: 20px;
+    display: flex;
+    margin-top: 20px;
+    color:  #c00;
+    justify-content: center;
+    align-items: center;
+  }
+  .Wrpper-NFC {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    scanButton {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #007BFF;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 20px 0;
+    }
+
+    scanButton:hover {
+        background-color: #0056b3;
+    }
+
+.output {
+    font-size: 16px;
+    color: #555;
+    margin-top: 20px;
+}
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px; /* Kleinere Schriftgröße für mobile Geräte */
+    }
+    #Header-Logo2{
+      display: none;
+    }
+    #Wrapper-Header{
+        height: 18vh;
+    }
+  
+    #Header-Name {
+     display: none;
+    }
+  
+    #Header-Name {
+      font-size: 24px; /* Kleinere Schriftgröße für den Header-Titel */
+      padding-left: 0; /* Zentriert den Header-Titel auf mobilen Geräten */
+      padding-top: 30px;
+      text-align: center; /* Zentriert den Text */
+    }
+  
+    #Wrapper-Body {
+      margin-top: 20px; /* Weniger Abstand nach oben */
+    }
+  
+    .Wrapper-Fields {
+      margin-top: 20px; /* Kleinere Abstände */
+      flex-direction: column; /* Ordnet die Felder untereinander statt nebeneinander an */
+    }
+  
+    .Field {
+      width: 200px; /* Nutzt die volle Breite auf mobilen Geräten */
+      height: 120px; /* Reduziert die Höhe der Felder */
+      margin-bottom: 15px; /* Fügt Abstand zwischen den Feldern hinzu */
+      margin-right: 0; /* Entfernt den rechten Rand */
+    }
+  
+    .Field-Logo {
+      margin-top: 10px; /* Weniger Abstand nach oben */
+      width: 20vh;
+      padding-left: 20px;
+    }
+  
+    .Field-Name {
+      font-size: 16px; /* Kleinere Schriftgröße für die Feldnamen */
+      margin-top: 10px; /* Weniger Abstand nach oben */
+      float: left;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+
+    }
+  }
+  
