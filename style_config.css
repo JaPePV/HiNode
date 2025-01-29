@@ -28,6 +28,7 @@ h2{
     left: 95%;
     width: 5vh;
     fill: black;
+      display:none;
   }
   #Header-Logo1 {
     width: 100%;
