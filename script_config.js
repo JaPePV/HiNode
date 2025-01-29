@@ -169,46 +169,70 @@ function _readNfcTag() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           outputElement = document.getElementById('output');
-          if (!('NDEFReader' in window)) {
-            _context.next = 17;
+          if ('NDEFReader' in window) {
+            _context.next = 4;
             break;
           }
-          _context.prev = 2;
+          outputElement.innerHTML = "<p>Your browser does not support Web NFC.</p>";
+          return _context.abrupt("return");
+        case 4:
+          _context.prev = 4;
           ndef = new NDEFReader();
-          _context.next = 6;
+          _context.next = 8;
           return ndef.scan();
-        case 6:
+        case 8:
           outputElement.innerHTML = "<p>Scan started. Bring an NFC tag close to your device.</p>";
           ndef.onreading = function (event) {
-            var message = event.message.records[0];
-            if (message.recordType === 'text') {
-              var decoder = new TextDecoder();
-              var text = decoder.decode(message.data);
-              outputElement.innerHTML = "<p>Tag data: <strong>".concat(text, "</strong></p>");
-            } else {
-              outputElement.innerHTML = "<p>Unsupported NFC tag type.</p>";
+            var message = event.message;
+            var outputText = '';
+            if (message.records.length === 0) {
+              outputElement.innerHTML = "<p>No records found on the NFC tag.</p>";
+              return;
             }
+            message.records.forEach(function (record, index) {
+              var recordData = '';
+              switch (record.recordType) {
+                case 'text':
+                  {
+                    var decoder = new TextDecoder(record.encoding || 'utf-8');
+                    recordData = decoder.decode(record.data);
+                    break;
+                  }
+                case 'url':
+                  {
+                    var _decoder = new TextDecoder();
+                    recordData = _decoder.decode(record.data);
+                    break;
+                  }
+                case 'mime':
+                  {
+                    recordData = "[MIME: ".concat(record.mediaType, "]");
+                    break;
+                  }
+                default:
+                  {
+                    recordData = '[Unsupported NFC tag type]';
+                  }
+              }
+              outputText += "<p>Record ".concat(index + 1, ": <strong>").concat(recordData, "</strong></p>");
+            });
+            outputElement.innerHTML = outputText;
           };
           ndef.onreadingerror = function () {
             outputElement.innerHTML = "<p>Error reading NFC tag. Please try again.</p>";
           };
-          _context.next = 15;
+          _context.next = 17;
           break;
-        case 11:
-          _context.prev = 11;
-          _context.t0 = _context["catch"](2);
+        case 13:
+          _context.prev = 13;
+          _context.t0 = _context["catch"](4);
           console.error('Error:', _context.t0);
           outputElement.innerHTML = "<p>Error: ".concat(_context.t0.message, "</p>");
-        case 15:
-          _context.next = 18;
-          break;
         case 17:
-          outputElement.innerHTML = "<p>Your browser does not support Web NFC.</p>";
-        case 18:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[2, 11]]);
+    }, _callee, null, [[4, 13]]);
   }));
   return _readNfcTag.apply(this, arguments);
 }
