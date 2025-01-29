@@ -340,44 +340,47 @@ function pageHandler() {
     _declaration.nextSetting.style.display = 'none';
   }
 }
-function writeToNfcTag() {
+function writeToNfcTag(_x) {
   return _writeToNfcTag.apply(this, arguments);
 }
 function _writeToNfcTag() {
-  _writeToNfcTag = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _writeToNfcTag = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(data) {
     var _nfcWriter;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          if (!('NDEFReader' in window)) {
-            _context.next = 9;
+          if ('NDEFReader' in window) {
+            _context.next = 5;
             break;
           }
-          _nfcWriter = new NDEFReader();
-          _context.next = 5;
-          return _nfcWriter.write(_buildConfig.data);
-        case 5:
-          console.log("Erfolgreich geschrieben: \"".concat(_buildConfig.data, "\" auf den NFC-Tag."));
-          alert("Der String wurde erfolgreich auf den NFC-Tag geschrieben.");
-          _context.next = 11;
-          break;
-        case 9:
           console.error('Web NFC wird von diesem Gerät oder Browser nicht unterstützt.');
           alert('Web NFC wird von diesem Gerät oder Browser nicht unterstützt.');
-        case 11:
-          _context.next = 17;
+          return _context.abrupt("return");
+        case 5:
+          _nfcWriter = new NDEFReader();
+          _context.next = 8;
+          return _nfcWriter.write({
+            records: [{
+              recordType: "text",
+              data: data
+            }]
+          });
+        case 8:
+          console.log("Erfolgreich geschrieben: \"".concat(data, "\" auf den NFC-Tag."));
+          alert("Der String wurde erfolgreich auf den NFC-Tag geschrieben.");
+          _context.next = 16;
           break;
-        case 13:
-          _context.prev = 13;
+        case 12:
+          _context.prev = 12;
           _context.t0 = _context["catch"](0);
           console.error('Fehler beim Schreiben auf den NFC-Tag:', _context.t0);
           alert("Fehler: ".concat(_context.t0.message));
-        case 17:
+        case 16:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 13]]);
+    }, _callee, null, [[0, 12]]);
   }));
   return _writeToNfcTag.apply(this, arguments);
 }
@@ -411,7 +414,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61349" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59247" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
