@@ -363,7 +363,7 @@ function _writeToNfcTag() {
           return _nfcWriter.write({
             records: [{
               recordType: "text",
-              data: data
+              data: String(data) // Sicherstellen, dass data ein String ist
             }]
           });
         case 8:
