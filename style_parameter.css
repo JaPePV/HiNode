@@ -53,6 +53,7 @@ body{
     left: 95%;
     width: 5vh;
     fill: black;
+      display:none
   }
   table {
     width: 80%;
