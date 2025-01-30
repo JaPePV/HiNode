@@ -332,6 +332,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.enableWriteConfig = exports.counterPages = void 0;
 exports.writeConfigTag = writeConfigTag;
 var _buildConfig = require("./buildConfig.js");
+var _communication = require("./communication.js");
 var _declaration = require("./declaration.js");
 var _counterPages;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -391,7 +392,7 @@ function _writeNfc() {
           records = [{
             recordType: "mime",
             mediaType: "application/json",
-            data: new TextEncoder().encode(JSON.stringify(iMessageConfig))
+            data: new TextEncoder().encode(JSON.stringify(_communication.iMessage))
           }]; // Schreibvorgang
           statusElement.textContent = 'Halte das Gerät an den NFC-Tag...';
           _context.next = 12;
@@ -426,7 +427,7 @@ function _writeNfc() {
   }));
   return _writeNfc.apply(this, arguments);
 }
-},{"./buildConfig.js":"Config/buildConfig.js","./declaration.js":"Config/declaration.js"}],"script_config.js":[function(require,module,exports) {
+},{"./buildConfig.js":"Config/buildConfig.js","./communication.js":"Config/communication.js","./declaration.js":"Config/declaration.js"}],"script_config.js":[function(require,module,exports) {
 "use strict";
 
 var _readConfig = require("./Config/readConfig.js");
