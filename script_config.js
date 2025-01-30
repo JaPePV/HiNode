@@ -485,7 +485,7 @@ function _writeNfc() {
             mediaType: "application/json",
             data: new TextEncoder().encode(JSON.stringify(_communication.iMessage))
           }]; // Schreibvorgang
-          statusElement.textContent = 'Halte das Gerät an den NFC-Tag...';
+          statusElement.textContent = 'Hold the device to the NFC tag...';
           _context.next = 12;
           return _nfcWriter.write({
             records: records,
@@ -493,7 +493,7 @@ function _writeNfc() {
           });
         case 12:
           // Erfolgsmeldung
-          statusElement.textContent = '✅ Konfiguration erfolgreich geschrieben!';
+          statusElement.textContent = '✅ Configuration written successfully!';
           statusElement.className = 'success';
           _context.next = 20;
           break;
