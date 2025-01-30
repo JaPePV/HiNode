@@ -504,7 +504,7 @@ function _writeNfc() {
           // statusElement.textContent = `❌ Fehler: ${error.message}`;
           // statusElement.className = 'error';
           // console.error('NFC-Fehler:', error);
-          statusElement.textContent = '✅ Konfiguration erfolgreich geschrieben!';
+          statusElement.textContent = '✅ Configuration written successfully!';
           statusElement.className = 'success';
         case 20:
           _context.prev = 20;
