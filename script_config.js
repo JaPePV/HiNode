@@ -147,15 +147,15 @@ Object.defineProperty(exports, "__esModule", {
 exports.iMessage = void 0;
 var _declaration = require("./declaration.js");
 var iMessage = exports.iMessage = {
-  gatewayName: 1,
-  gatewaySerialNumber: 2,
-  gatewayManufacturer: 3,
-  gatewayPartNumber: 4,
-  commOutProtocol: 5,
-  brkAdrV4: 6,
-  brkPrtV4: 7,
-  brkTopics: 8,
-  brkUsr: 9,
+  gatewayName: "HiNode_1",
+  gatewaySerialNumber: "#1",
+  gatewayManufacturer: "pfeiffer-vacuum.com",
+  gatewayPartNumber: "1",
+  commOutProtocol: "MQTT",
+  brkAdrV4: "178.63.222.163",
+  brkPrtV4: "31883",
+  brkTopics: "telemetry/data",
+  brkUsr: "telemetry",
   brkPwd: 10,
   brkQos: 11,
   brkInterval: 12
