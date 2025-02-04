@@ -147,15 +147,15 @@ Object.defineProperty(exports, "__esModule", {
 exports.iMessage = void 0;
 var _declaration = require("./declaration.js");
 var iMessage = exports.iMessage = {
-  gatewayName: "HiNode_1",
-  gatewaySerialNumber: "#1",
-  gatewayManufacturer: "pfeiffer-vacuum.com",
-  gatewayPartNumber: "1",
-  commOutProtocol: "MQTT",
-  brkAdrV4: "178.63.222.163",
-  brkPrtV4: "31883",
-  brkTopics: "telemetry/data",
-  brkUsr: "telemetry",
+  gatewayName: 1,
+  gatewaySerialNumber: 2,
+  gatewayManufacturer: 3,
+  gatewayPartNumber: 4,
+  commOutProtocol: 5,
+  brkAdrV4: 6,
+  brkPrtV4: 7,
+  brkTopics: 8,
+  brkUsr: 9,
   brkPwd: 10,
   brkQos: 11,
   brkInterval: 12
@@ -191,19 +191,15 @@ function _readNfcTag() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          outputElement = document.getElementById('output');
-          if ('NDEFReader' in window) {
-            _context.next = 4;
-            break;
-          }
-          outputElement.innerHTML = "<p>Your browser does not support Web NFC.</p>";
-          return _context.abrupt("return");
-        case 4:
-          _context.prev = 4;
+          outputElement = document.getElementById('output'); // if (!('NDEFReader' in window)) {
+          //     outputElement.innerHTML = `<p>Your browser does not support Web NFC.</p>`;
+          //     return;
+          // }
+          _context.prev = 1;
           ndef = new NDEFReader();
-          _context.next = 8;
+          _context.next = 5;
           return ndef.scan();
-        case 8:
+        case 5:
           outputElement.innerHTML = "<p>Scan started. Bring an NFC tag close to your device.</p>";
           ndef.onreading = function (event) {
             var message = event.message;
@@ -244,18 +240,18 @@ function _readNfcTag() {
           ndef.onreadingerror = function () {
             outputElement.innerHTML = "<p>Error reading NFC tag. Please try again.</p>";
           };
-          _context.next = 17;
+          _context.next = 14;
           break;
-        case 13:
-          _context.prev = 13;
-          _context.t0 = _context["catch"](4);
+        case 10:
+          _context.prev = 10;
+          _context.t0 = _context["catch"](1);
           console.error('Error:', _context.t0);
           outputElement.innerHTML = "<p>Error: ".concat(_context.t0.message, "</p>");
-        case 17:
+        case 14:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[4, 13]]);
+    }, _callee, null, [[1, 10]]);
   }));
   return _readNfcTag.apply(this, arguments);
 }
@@ -495,28 +491,28 @@ function _writeNfc() {
           // Erfolgsmeldung
           statusElement.textContent = '✅ Configuration written successfully!';
           statusElement.className = 'success';
-          _context.next = 20;
+          _context.next = 22;
           break;
         case 16:
           _context.prev = 16;
           _context.t0 = _context["catch"](1);
-          // Fehlerbehandlung
-          // statusElement.textContent = `❌ Fehler: ${error.message}`;
-          // statusElement.className = 'error';
-          // console.error('NFC-Fehler:', error);
-          statusElement.textContent = '✅ Configuration written successfully!';
-          statusElement.className = 'success';
-        case 20:
-          _context.prev = 20;
+          Fehlerbehandlung;
+          statusElement.textContent = "\u274C Fehler: ".concat(_context.t0.message);
+          statusElement.className = 'error';
+          console.error('NFC-Fehler:', _context.t0);
+          // statusElement.textContent = '✅ Konfiguration erfolgreich geschrieben!';
+          // statusElement.className = 'success';
+        case 22:
+          _context.prev = 22;
           setTimeout(function () {
             statusElement.style.display = 'none';
           }, 5000);
-          return _context.finish(20);
-        case 23:
+          return _context.finish(22);
+        case 25:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 16, 20, 23]]);
+    }, _callee, null, [[1, 16, 22, 25]]);
   }));
   return _writeNfc.apply(this, arguments);
 }
@@ -550,7 +546,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56261" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63047" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
