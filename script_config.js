@@ -147,18 +147,18 @@ Object.defineProperty(exports, "__esModule", {
 exports.iMessage = void 0;
 var _declaration = require("./declaration.js");
 var iMessage = exports.iMessage = {
-  gatewayName: 1,
-  gatewaySerialNumber: 2,
-  gatewayManufacturer: 3,
-  gatewayPartNumber: 4,
-  commOutProtocol: 5,
-  brkAdrV4: 6,
-  brkPrtV4: 7,
-  brkTopics: 8,
-  brkUsr: 9,
-  brkPwd: 10,
-  brkQos: 11,
-  brkInterval: 12
+  gatewayName: "HiNode_1",
+  gatewaySerialNumber: "#1",
+  gatewayManufacturer: "pfeiffer-vacuum.com",
+  gatewayPartNumber: 1,
+  commOutProtocol: "MQTT",
+  brkAdrV4: "178.63.222.163",
+  brkPrtV4: "31883",
+  brkTopics: "telemetry/data",
+  brkUsr: "telemetry",
+  brkPwd: "",
+  brkQos: "QoS 0 – At Most Once",
+  brkInterval: "5"
 };
 },{"./declaration.js":"Config/declaration.js"}],"Config/readConfig.js":[function(require,module,exports) {
 "use strict";
@@ -452,12 +452,62 @@ function pageHandler() {
     _declaration.nextSetting.style.display = 'none';
   }
 }
+
+// async function writeNfc() {
+//     const statusElement = document.getElementById('status');
+
+//     try {
+//         // Browser-Support prüfen
+//         if (!('NDEFReader' in window)) {
+//             throw new Error('NFC wird in diesem Browser nicht unterstützt');
+//         }
+
+//         // NFC Writer initialisieren
+//         const nfcWriter = new NDEFReader();
+
+//         // UI aktualisieren
+//         statusElement.textContent = 'Initialisiere NFC...';
+//         statusElement.className = '';
+//         statusElement.style.display = 'block';
+
+//         // Records erstellen
+//         const records = [{
+//             recordType: "mime",
+//             mediaType: "application/json",
+//             data: new TextEncoder().encode(JSON.stringify(iMessage))
+//         }];
+
+//         // Schreibvorgang
+//         statusElement.textContent = 'Hold the device to the NFC tag...';
+//         await nfcWriter.write({
+//             records,
+//             signal: AbortSignal.timeout(30000) // 30s Timeout
+//         });
+
+//         // Erfolgsmeldung
+//         statusElement.textContent = '✅ Configuration written successfully!';
+//         statusElement.className = 'success';
+
+//     } catch (error) {
+//         statusElement.textContent = '✅ Configuration written successfully!';
+//         statusElement.className = 'success';
+//         // statusElement.textContent = `❌ Fehler: ${error.message}`;
+//         // statusElement.className = 'error';
+//         // console.error('NFC-Fehler:', error);
+//         // statusElement.textContent = '✅ Konfiguration erfolgreich geschrieben!';
+//         // statusElement.className = 'success';
+//     } finally {
+//         setTimeout(() => {
+//             statusElement.style.display = 'none';
+//         }, 5000);
+//     }
+// }
 function writeNfc() {
   return _writeNfc.apply(this, arguments);
 }
 function _writeNfc() {
   _writeNfc = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var statusElement, _nfcWriter, records;
+    var statusElement, _nfcWriter, records, errorMessage;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -469,51 +519,67 @@ function _writeNfc() {
           }
           throw new Error('NFC wird in diesem Browser nicht unterstützt');
         case 4:
-          // NFC Writer initialisieren
-          _nfcWriter = new NDEFReader(); // UI aktualisieren
+          // 2. NFC Writer initialisieren
+          _nfcWriter = new NDEFReader(); // 3. UI aktualisieren
           statusElement.textContent = 'Initialisiere NFC...';
           statusElement.className = '';
           statusElement.style.display = 'block';
 
-          // Records erstellen
+          // 4. Records erstellen
           records = [{
             recordType: "mime",
             mediaType: "application/json",
             data: new TextEncoder().encode(JSON.stringify(_communication.iMessage))
-          }]; // Schreibvorgang
-          statusElement.textContent = 'Hold the device to the NFC tag...';
+          }]; // 5. Schreibvorgang mit erweiterten Optionen
+          statusElement.textContent = 'Halte das Gerät an den NFC-Tag...';
           _context.next = 12;
           return _nfcWriter.write({
             records: records,
-            signal: AbortSignal.timeout(30000) // 30s Timeout
+            signal: AbortSignal.timeout(60000),
+            // 60 Sekunden Timeout
+            overrides: {
+              protocol: "ISO 15693",
+              // Explizit ISO 15693 angeben
+              highBitRate: false,
+              // Langsame Übertragung für bessere Stabilität
+              ignoreReadOnly: true // Überschreibe Schreibsperren
+            }
           });
         case 12:
-          // Erfolgsmeldung
-          statusElement.textContent = '✅ Configuration written successfully!';
+          // 6. Erfolgsmeldung
+          statusElement.textContent = '✅ Konfiguration erfolgreich geschrieben!';
           statusElement.className = 'success';
-          _context.next = 20;
+          _context.next = 23;
           break;
         case 16:
           _context.prev = 16;
           _context.t0 = _context["catch"](1);
-          statusElement.textContent = '✅ Configuration written successfully!';
-          statusElement.className = 'success';
-          // statusElement.textContent = `❌ Fehler: ${error.message}`;
-          // statusElement.className = 'error';
-          // console.error('NFC-Fehler:', error);
-          // statusElement.textContent = '✅ Konfiguration erfolgreich geschrieben!';
-          // statusElement.className = 'success';
-        case 20:
-          _context.prev = 20;
+          // 7. Verbesserte Fehlerbehandlung
+          errorMessage = "\u274C Fehler: ".concat(_context.t0.message); // Spezifische Fehlermeldungen für ST25DV64KC
+          if (_context.t0.message.includes("not supported")) {
+            errorMessage = "Tag-Typ nicht unterstützt (ISO 15693 benötigt)";
+          } else if (_context.t0.message.includes("timeout")) {
+            errorMessage = "Timeout: Halte den Tag näher ans Gerät";
+          } else if (_context.t0.message.includes("NDEF format")) {
+            errorMessage = "Tag ist nicht NDEF-formatiert";
+          } else if (_context.t0.message.includes("IO error")) {
+            errorMessage = "Kommunikationsfehler: Überprüfe die Tag-Positionierung";
+          }
+          statusElement.textContent = errorMessage;
+          statusElement.className = 'error';
+          console.error('NFC-Fehler:', _context.t0);
+        case 23:
+          _context.prev = 23;
+          // 8. UI zurücksetzen
           setTimeout(function () {
             statusElement.style.display = 'none';
           }, 5000);
-          return _context.finish(20);
-        case 23:
+          return _context.finish(23);
+        case 26:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 16, 20, 23]]);
+    }, _callee, null, [[1, 16, 23, 26]]);
   }));
   return _writeNfc.apply(this, arguments);
 }
@@ -547,7 +613,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63047" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64104" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
