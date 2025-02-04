@@ -479,7 +479,7 @@ function _writeNfc() {
           records = [{
             recordType: "mime",
             mediaType: "application/json",
-            data: new TextEncoder().encode(JSON.stringify(_communication.iMessage))
+            data: new TextEncoder().encode("hey")
           }]; // 5. ST25-spezifische Konfiguration
           statusElement.textContent = 'Halte das Gerät an den NFC-Tag...';
           _context.next = 12;
@@ -561,7 +561,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63047" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64104" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
